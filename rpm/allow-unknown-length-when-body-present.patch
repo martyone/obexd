@@ -1,0 +1,15 @@
+diff --git a/src/obex.c b/src/obex.c
+index 9044961..5ae4ff1 100644
+--- a/src/obex.c
++++ b/src/obex.c
+@@ -961,6 +961,10 @@ static void cmd_put(GObex *obex, GObexPacket *req, gpointer user_data)
+ 
+ 	os->cmd = G_OBEX_OP_PUT;
+ 
++	/* Set size to unknown if a body header exists */
++	if (g_obex_packet_get_body(req))
++		os->size = OBJECT_SIZE_UNKNOWN;
++
+ 	parse_name(os, req);
+ 	parse_length(os, req);
+ 	parse_time(os, req);
